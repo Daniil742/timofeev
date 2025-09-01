@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Даниил Тимофеев - Fullstack-разработчик</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1c1f;
+            --text-color: #ffffff;
+            --text-muted-color: rgba(255, 255, 255, 0.7);
+            --accent-color-teal: #34d399;
+            --accent-color-cyan: #22d3ee;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg-color: rgba(255, 255, 255, 0.03);
+            --card-hover-border-color: rgba(255, 255, 255, 0.2);
+            --button-primary-bg: #14b8a6; /* teal-500 */
+            --button-primary-hover-bg: #2dd4bf; /* teal-400 */
+            --button-text-color: #0f1c1f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: rgba(15, 28, 31, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-initials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.5rem;
+            width: 2.5rem;
+            background-color: var(--accent-color-teal);
+            color: var(--button-text-color);
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        
+        .logo-name {
+            font-weight: 600;
+            font-size: 1.125rem;
+            letter-spacing: -0.025em;
+        }
+
+        nav {
+            display: none;
+        }
+
+        nav a {
+            color: var(--text-muted-color);
+            transition: color 0.2s ease-in-out;
+            padding: 0.5rem 1rem;
+        }
+
+        nav a:hover {
+            color: var(--text-color);
+        }
+        
+        .nav-contact-btn {
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 1rem;
+            border: 1px solid rgba(52, 211, 153, 0.4);
+            padding: 0.5rem 1rem;
+            color: var(--accent-color-teal);
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .nav-contact-btn:hover {
+            color: var(--text-color);
+            border-color: var(--accent-color-teal);
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+        .menu-button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            text-align: center;
+        }
+
+        .hero-blur {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 9999px;
+            filter: blur(80px);
+        }
+
+        .hero-blur.top-left {
+            top: -6rem;
+            left: -6rem;
+            height: 18rem;
+            width: 18rem;
+            background-color: rgba(52, 211, 153, 0.2);
+        }
+        
+        .hero-blur.bottom-right {
+            bottom: -6rem;
+            right: -6rem;
+            height: 18rem;
+            width: 18rem;
+            background-color: rgba(34, 211, 238, 0.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+        }
+
+        h1 .highlight {
+            color: var(--accent-color-teal);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .hero-subtitle {
+            margin-top: 1.5rem;
+            color: var(--text-muted-color);
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            border-radius: 1rem;
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary-bg);
+            color: var(--button-text-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--button-primary-hover-bg);
+        }
+        
+        .btn-secondary {
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--card-hover-border-color);
+        }
+        
+        .section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg-color);
+            padding: 1.5rem;
+            transition: border-color 0.2s ease-in-out;
+        }
+        
+        .skill-card:hover {
+            border-color: var(--card-hover-border-color);
+        }
+
+        .skill-card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-card-list {
+            color: var(--text-muted-color);
+            line-height: 1.8;
+        }
+
+        .experience-timeline {
+            position: relative;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+            padding-left: 2.5rem;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0.25rem;
+            width: 1px;
+            height: 100%;
+            background-color: var(--border-color);
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 9999px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--accent-color-teal);
+        }
+        
+        .timeline-date {
+            font-size: 0.875rem;
+            color: var(--text-muted-color);
+            margin-bottom: 0.25rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .timeline-company {
+            font-style: italic;
+            color: var(--text-muted-color);
+        }
+
+        .timeline-description {
+            margin-top: 1rem;
+            color: var(--text-muted-color);
+            line-height: 1.6;
+        }
+        
+        .timeline-description ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .timeline-description li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            border-radius: 9999px;
+            background-color: rgba(52, 211, 153, 0.1);
+            color: var(--accent-color-teal);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .education-grid {
+             display: grid;
+             gap: 1.5rem;
+             max-width: 48rem;
+             margin: 0 auto;
+        }
+
+        .education-item {
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg-color);
+            padding: 1.5rem;
+        }
+        
+        .education-year {
+            font-weight: 600;
+            color: var(--accent-color-teal);
+        }
+        
+        .education-degree {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .education-university, .education-faculty {
+            margin-top: 0.25rem;
+            color: var(--text-muted-color);
+            font-size: 0.875rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            padding: 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-muted-color);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted-color);
+            transition: color 0.2s ease-in-out;
+        }
+        .footer-links a:hover {
+            color: var(--text-color);
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .menu-button-container {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 7rem;
+                padding-bottom: 7rem;
+                text-align: left;
+            }
+
+            .hero-content {
+                max-width: 48rem;
+                margin-left: 0;
+            }
+            
+            h1 {
+                font-size: 3.75rem;
+            }
+            
+            .hero-subtitle {
+                margin-left: 0;
+            }
+            
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+
+            .section-title {
+                text-align: left;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .education-grid {
+                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 4rem;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+        }
+
+        .mobile-nav a {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-muted-color);
+        }
+        
+        .mobile-nav a:hover {
+            color: var(--text-color);
+            background-color: var(--card-bg-color);
+        }
+        
+        #menu-toggle:checked ~ .header-content .mobile-nav {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <input id="menu-toggle" type="checkbox" />
+        <div class="header-content container">
+            <div class="logo">
+                <div class="logo-initials">ДТ</div>
+                <div class="logo-name">Даниил Тимофеев</div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav>
+                <a href="#skills">Навыки</a>
+                <a href="#experience">Опыт</a>
+                <a href="#education">Образование</a>
+                <a href="#contact" class="nav-contact-btn">Связаться</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <label for="menu-toggle" class="menu-button-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </label>
+
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav">
+                <a href="#skills">Навыки</a>
+                <a href="#experience">Опыт</a>
+                <a href="#education">Образование</a>
+                <a href="#contact">Связаться</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-blur top-left"></div>
+            <div class="hero-blur bottom-right"></div>
+            <div class="hero-content container">
+                <h1>
+                    Fullstack-разработчик
+                    <span class="highlight">Даниил Тимофеев</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Разработчик с 4-летним опытом в создании и поддержке сложных веб-приложений с использованием C#/.NET и React. Специализируюсь на разработке микросервисных архитектур, оптимизации производительности и настройке CI/CD процессов.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/Daniil742" target="_blank" class="btn btn-primary">Посмотреть GitHub</a>
+                    <a href="#contact" class="btn btn-secondary">Написать мне</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section container">
+            <h2 class="section-title">Ключевые навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3 class="skill-card-title">Backend</h3>
+                    <p class="skill-card-list">C#, .NET 8 / Core, ASP.NET Core (Web API), Entity Framework, gRPC, SignalR, RabbitMQ, Hangfire</p>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-card-title">Frontend</h3>
+                    <p class="skill-card-list">React, TypeScript, JavaScript, Axios, AngularJS</p>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-card-title">Базы данных</h3>
+                    <p class="skill-card-list">PostgreSQL, MS SQL Server, T-SQL</p>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-card-title">DevOps & Инструменты</h3>
+                    <p class="skill-card-list">Azure DevOps (CI/CD), Docker, Docker-Compose, Git, GitHub, YARP, Aspire, Postman, Swagger</p>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-card-title">Архитектуры и методологии</h3>
+                    <p class="skill-card-list">Микросервисная архитектура, Модульный монолит, Clean Architecture, Unit-тестирование (xUnit), ООП, Паттерны проектирования</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section container">
+            <h2 class="section-title">Опыт работы</h2>
+            <div class="experience-timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Май 2023 – Настоящее время</div>
+                    <h3 class="timeline-title">Fullstack-разработчик</h3>
+                    <h4 class="timeline-company">Sensible Dev</h4>
+                    <div class="timeline-description">
+                        <p><strong>Проект: Корпоративный портал и Telegram-бот</strong></p>
+                        <ul>
+                            <li>Реализовал модуль нотификаций (Telegram, Email, Push) для оперативного информирования сотрудников.</li>
+                            <li>Интегрировал Hangfire для управления фоновыми задачами, такими как рассылки и обработка отложенных операций.</li>
+                            <li>Разработал компонент профиля пользователя, включая frontend на React и backend на ASP.NET.</li>
+                            <li>Оптимизировал React-компоненты, устранив проблемы с лишними рендерами и улучшив плавность анимаций.</li>
+                        </ul>
+                        <div class="tech-tags">
+                            <span class="tech-tag">.NET 8</span><span class="tech-tag">React</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Docker</span><span class="tech-tag">Hangfire</span><span class="tech-tag">OAuth</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Ноябрь 2022 – Март 2024</div>
+                    <h3 class="timeline-title">Fullstack-разработчик / DevOps</h3>
+                    <h4 class="timeline-company">НОРБИТ</h4>
+                    <div class="timeline-description">
+                        <p><strong>Проект: Платформа автокредитования (США)</strong></p>
+                        <ul>
+                            <li>Спроектировал и разработал модуль Bank Reconciliation для автоматической сверки транзакций с внешними платежными системами.</li>
+                            <li>Реализовал систему оценки дилеров с аналитикой по качеству сделок и прогнозным метрикам.</li>
+                            <li>Настроил CI/CD пайплайны в Azure DevOps для автоматизации сборки, тестирования и развертывания.</li>
+                            <li>Оптимизировал производительность отчетов, добившись ускорения их загрузки в 2-3 раза.</li>
+                            <li>Участвовал в распиле монолита (.NET Framework + AngularJS) на микросервисы (.NET 8).</li>
+                        </ul>
+                         <div class="tech-tags">
+                            <span class="tech-tag">.NET 8</span><span class="tech-tag">React</span><span class="tech-tag">AngularJS</span><span class="tech-tag">MS SQL</span><span class="tech-tag">Azure DevOps</span><span class="tech-tag">CI/CD</span><span class="tech-tag">RabbitMQ</span><span class="tech-tag">gRPC</span><span class="tech-tag">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Февраль 2022 – Февраль 2023</div>
+                    <h3 class="timeline-title">Младший программист</h3>
+                    <h4 class="timeline-company">НОРБИТ</h4>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Доработка клиентской и серверной части приложения с использованием C# и JavaScript.</li>
+                            <li>Написание SQL-запросов и хранимых процедур.</li>
+                            <li>Покрытие разработанного кода unit-тестами.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Август 2021 – Ноябрь 2021</div>
+                    <h3 class="timeline-title">Техник-программист (Стажер)</h3>
+                    <h4 class="timeline-company">АО "ИРЗ"</h4>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Участие в разработке и поддержке внутренних программных продуктов.</li>
+                            <li>Исправление ошибок и выполнение задач под руководством наставника.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="section container">
+            <h2 class="section-title">Образование</h2>
+            <div class="education-grid">
+                <div class="education-item">
+                    <p class="education-year">2024</p>
+                    <h3 class="education-degree">Бакалавр, «Технологии искусственного интеллекта и BigData»</h3>
+                    <p class="education-university">Удмуртский государственный университет, Ижевск</p>
+                    <p class="education-faculty">Институт математики, информационных технологий и физики</p>
+                </div>
+                 <div class="education-item">
+                    <p class="education-year">2021</p>
+                    <h3 class="education-degree">Бакалавр, «Прикладная математика и информатика»</h3>
+                    <p class="education-university">Удмуртский государственный университет, Ижевск</p>
+                    <p class="education-faculty">Институт математики, информационных технологий и физики</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-content container">
+            <div class="footer-logo">
+                 <div class="logo-initials">ДТ</div>
+                 <p class="footer-text">© 2025 Даниил Тимофеев</p>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:timofeev742@gmail.com">Email</a>
+                <a href="tel:+79120220483">Телефон</a>
+                <a href="https://github.com/Daniil742" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                document.getElementById('menu-toggle').checked = false;
+            });
+        });
+    </script>
+</body>
+</html>
